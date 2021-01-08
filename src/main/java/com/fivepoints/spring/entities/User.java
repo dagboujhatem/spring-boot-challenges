@@ -10,9 +10,13 @@ import java.util.Date;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
-
+// @Data is a convenient annotation that combines the features of the following annotations:
+// @ToString
+// @EqualsAndHashCode
+// @Getter
+// @Setter
+// @RequiredArgsConstructor
+@Data
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
