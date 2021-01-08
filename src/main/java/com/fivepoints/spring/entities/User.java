@@ -13,8 +13,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "users")
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
