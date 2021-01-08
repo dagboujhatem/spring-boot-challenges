@@ -1,9 +1,6 @@
 package com.fivepoints.spring.entities;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,35 +10,29 @@ import java.util.Date;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
+    @Setter(value = AccessLevel.NONE)
     private int id;
-    @Getter
-    @Setter
+
     private String firstName;
-    @Getter
-    @Setter
     private String lastName;
-    @Getter
-    @Setter
     private String email;
-    @Getter
-    @Setter
     private String password;
-    @Getter
-    @Setter
     private int age;
 
-    @Getter
+    @Setter(value = AccessLevel.NONE)
     @Basic(optional = false)
     @CreationTimestamp
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt = new Date();
 
-    @Getter
+    @Setter(value = AccessLevel.NONE)
     @UpdateTimestamp
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
