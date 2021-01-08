@@ -11,25 +11,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
-// @Data is a convenient annotation that combines the features of the following annotations:
-// @ToString
-// @EqualsAndHashCode
-// @Getter
-// @Setter
-// @RequiredArgsConstructor
+@Table(name = "roles")
 @Data
-public class User implements Serializable {
+public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(value = AccessLevel.NONE)
     private int id;
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private int age;
+    private String name;
 
     @Setter(value = AccessLevel.NONE)
     @Basic(optional = false)

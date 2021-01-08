@@ -43,9 +43,9 @@ public class UserService {
     }
 
     public String deleteUserByID(int id) {
-        Optional<User> empl = userRepository.findById(id);
-        if(empl.isPresent()) {
-            userRepository.delete(empl.get());
+        Optional<User> existingUser = userRepository.findById(id);
+        if(existingUser.isPresent()) {
+            userRepository.delete(existingUser.get());
             return "User is deleted by id "+ id;
         }
         throw new RuntimeException("User not found .");
