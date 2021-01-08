@@ -1,6 +1,7 @@
 package com.fivepoints.spring.controllers;
 
 import com.fivepoints.spring.entities.User;
+import com.fivepoints.spring.payload.responses.MessageResponse;
 import com.fivepoints.spring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,9 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/")
-    public String addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public ResponseEntity<MessageResponse> addUser(@RequestBody User user) {
+        String message = userService.addUser(user);
+        return ResponseEntity.ok().body(new MessageResponse(message));
     }
 
     @GetMapping("/")
@@ -41,8 +43,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUserByID(@PathVariable(value="id") int user) {
-        return userService.deleteUserByID(user)	;
+    public ResponseEntity<?> deleteUserByID(@PathVariable(value="id") int user) {
+        String message = userService.deleteUserByID(user);
+        return ResponseEntity.ok().body(new MessageResponse(message));
     }
 
 }

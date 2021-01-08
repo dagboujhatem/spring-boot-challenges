@@ -1,6 +1,7 @@
 package com.fivepoints.spring.controllers;
 
 import com.fivepoints.spring.entities.Role;
+import com.fivepoints.spring.payload.responses.MessageResponse;
 import com.fivepoints.spring.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,9 @@ public class RoleController {
     RoleService roleService;
 
     @PostMapping("/")
-    public String addRole(@RequestBody Role role) {
-        return roleService.addRole(role);
+    public ResponseEntity<MessageResponse> addRole(@RequestBody Role role) {
+        String message = roleService.addRole(role);
+        return ResponseEntity.ok().body(new MessageResponse(message));
     }
 
     @GetMapping("/")
@@ -41,8 +43,9 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteRoleByID(@PathVariable(value="id") int user) {
-        return roleService.deleteRoleByID(user)	;
+    public ResponseEntity<?> deleteRoleByID(@PathVariable(value="id") int user) {
+        String message = roleService.deleteRoleByID(user);
+        return ResponseEntity.ok().body(new MessageResponse(message));
     }
 
 }
