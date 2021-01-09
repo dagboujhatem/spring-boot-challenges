@@ -2,6 +2,7 @@ package com.fivepoints.spring.entities;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NonNull;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -30,6 +31,10 @@ public class User implements Serializable {
     private String email;
     private String password;
     private int age;
+
+    // OneToOne unidirectional relationship
+    @OneToOne
+    private Role role;
 
     @Setter(value = AccessLevel.NONE)
     @Basic(optional = false)
