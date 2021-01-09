@@ -29,5 +29,5 @@ public class SignupRequest {
     @Min(18)
     private int age;
 
-    private Set<String> role;
+    private Set<String> roles;
 }

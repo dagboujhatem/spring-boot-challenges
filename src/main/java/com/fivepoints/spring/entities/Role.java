@@ -19,7 +19,9 @@ public class Role implements Serializable {
     @Setter(value = AccessLevel.NONE)
     private int id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private ERole name;
 
     @Setter(value = AccessLevel.NONE)
     @Basic(optional = false)

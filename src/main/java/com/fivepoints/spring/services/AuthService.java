@@ -1,5 +1,7 @@
 package com.fivepoints.spring.services;
 
+import com.fivepoints.spring.entities.ERole;
+import com.fivepoints.spring.entities.Role;
 import com.fivepoints.spring.entities.User;
 import com.fivepoints.spring.payload.requests.LoginRequest;
 import com.fivepoints.spring.payload.requests.SignupRequest;
@@ -13,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -44,6 +48,37 @@ public class AuthService {
         newUser.setEmail(signupRequest.getEmail());
         newUser.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
         newUser.setAge(signupRequest.getAge());
+
+        // Add roles associations to newUser
+        Set<String> strRoles = signupRequest.getRoles();
+        Set<Role> roles = new HashSet<>();
+
+        if (strRoles == null) {
+            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+        } else {
+            strRoles.forEach(role -> {
+                switch (role) {
+                    case "super-admin":
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_SUPER_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
+
+                        break;
+                    case "admin":
+                        Role modRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(modRole);
+
+                        break;
+                    default:
+                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(userRole);
+                }
+            });
+        }
 
         // Save newUser and return success response
         userRepository.save(newUser);
